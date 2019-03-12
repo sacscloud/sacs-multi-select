@@ -1,0 +1,26 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../sacs-list-dropdown/sacs-list-dropdown.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+
+<link rel="import" href="./sacs-multi-select-styles.html">
+
+<dom-module id="sacs-multi-select">
+    <template>
+        <style include="sacs-multi-select-styles"></style>
+
+        <section class="section">
+            <hr>
+            <h2>[[title]]</h2>
+            <p>[[description]]</p>
+            <input type="text" id="input_filter" class="input_filter" on-input="_filterSearch" placeholder="[[placeholderInput]]">
+            <div id="container_items" class="container_items">
+            </div>
+
+            <sacs-list-dropdown class="list_dropdown" data-list="[[dataFilter]]"></sacs-list-dropdown>
+        </section>
+    </template>
+
+    <script src="./sacs-multi-select.js"></script>
+</dom-module>
