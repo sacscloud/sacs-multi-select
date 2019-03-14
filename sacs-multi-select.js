@@ -13,7 +13,7 @@ Polymer({
     is: 'sacs-multi-select',
     properties: {
 
-        dataFilter: {
+        datafilter: {
             type: Array,
             value:
                 [
@@ -40,7 +40,7 @@ Polymer({
             value: 'Description'
         },
 
-        placeholderInput:{
+        placeholderinput:{
             type:String,
             value:"placeholder"
         }
@@ -77,7 +77,7 @@ Polymer({
             this.$$('.container_items').insertAdjacentHTML('beforeend', templateItem);
         }
 
-        this.$$('sacs-list-dropdown').dataList = this.dataFilter;
+        this.$$('sacs-list-dropdown').dataList = this.datafilter;
     },
 
     _listenerCointainerItems: function (e) {
@@ -92,7 +92,7 @@ Polymer({
 
 
         if (this.__notOnlySpaces(txtToFilter)) {
-            const dataAux = this.dataFilter;
+            const dataAux = this.datafilter;
             const dataFiltered = dataAux.filter(element => element.name.toLowerCase().includes(txtToFilter));
 
             if (dataFiltered.length === 0) {
@@ -102,7 +102,7 @@ Polymer({
             this.$$('sacs-list-dropdown').dataList = dataFiltered;
 
         } else {
-            this.$$('sacs-list-dropdown').dataList = this.dataFilter;
+            this.$$('sacs-list-dropdown').dataList = this.datafilter;
         }
 
     },
