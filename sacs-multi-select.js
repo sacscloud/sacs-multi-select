@@ -40,9 +40,13 @@ Polymer({
             value: 'Description'
         },
 
-        placeholderinput:{
-            type:String,
-            value:"placeholder"
+        placeholderinput: {
+            type: String,
+            value: "placeholder"
+        },
+        dataselected: {
+            type: Array,
+            value: []
         }
     },
 
@@ -73,6 +77,9 @@ Polymer({
            <iron-icon class="icon_close" icon="icons:clear" data-id="${e.detail.itemSelected}"></iron-icon>
          </div>`;
 
+        this.push('dataselected', { id: e.detail.itemSelected, name: e.detail.name });
+
+
         if (e.detail.name !== null) {
             this.$$('.container_items').insertAdjacentHTML('beforeend', templateItem);
         }
@@ -81,7 +88,12 @@ Polymer({
     },
 
     _listenerCointainerItems: function (e) {
-        if (e.target.getAttribute('data-id') !== null) {
+        const idItem = e.target.getAttribute('data-id');
+        if (idItem !== null) {
+            const newArray = this.dataselected.filter(item => item.id !== idItem);
+
+            this.dataselected = newArray;
+
             this.$$('.container_items').removeChild(e.target.parentElement);
         }
     },
