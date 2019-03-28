@@ -15,19 +15,17 @@ Polymer({
 
         datafilter: {
             type: Array,
-            value:
-                [
-                    { name: "Item 1", id: "1" },
-                    { name: "Item 2", id: "2" },
-                    { name: "Item 3", id: "3" },
-                    { name: "Item 4", id: "4" },
-                    { name: "Item 5", id: "5" },
-                    { name: "Item 6", id: "6" },
-                    { name: "Item 7", id: "7" },
-                    { name: "Item 8", id: "8" },
-                    { name: "Item 9", id: "9" },
-                    { name: "Item 10", id: "10" },
-                ]
+            value:[]
+        },
+
+        data:{
+            type:Array,
+            value:[]
+        },
+
+        items:{
+            type:Object,
+            value:{}
         },
 
         title: {
@@ -53,6 +51,26 @@ Polymer({
     listeners: {
         'item-selected': '_listenerSelectItem',
         'container_items.click': '_listenerCointainerItems'
+    },
+
+    attached: function () {
+        this.data.map( obj => {
+
+            const dataList = new Object();
+            for (let key in obj){
+                if(key === this.items.label){
+                  dataList.name = obj[key];
+                }
+                
+                if(key === this.items.id){
+                    dataList.id = obj[key];
+
+                }
+              
+            }
+
+            this.push('datafilter', dataList);
+        });
     },
 
 

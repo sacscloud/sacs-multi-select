@@ -22,7 +22,50 @@
       <h3>Basic sacs-multi-select demo</h3>
       <demo-snippet>
         <template>
-          <sacs-multi-select title="Productos" description="selecciona los productos que deseas"></sacs-multi-select>
+          <sacs-multi-select title="Productos" description="selecciona los productos que deseas" 
+          items='{
+            "label": "inventorycount", "id":"created"}' 
+            data='[{
+            "$key": "-L_Q-yOVCgn4DuKtoymp",
+            "count": "ad",
+            "created": 1552010176169,
+            "inventorycount": "dasd",
+            "modified": 1552010176169,
+            "outlet": "adasd",
+            "startdate": "asda",
+            "starttime": "adad",
+            "status": "asdasd",
+            "uid": "sYAz35uEWzgDIX19BneSCdWGoyj2",
+            "manualCount":"manual count"
+            },
+            
+            {
+            "$key": "-L_Q0rKOQRAoWx2aC3UO",
+            "count": "asdasd",
+            "created": 1552010409385,
+            "inventorycount": "otro inventory",
+            "modified": 1552010409385,
+            "outlet": "asdasd",
+            "startdate": "asdads",
+            "starttime": "asdasd",
+            "status": "asdasd",
+            "uid": "sYAz35uEWzgDIX19BneSCdWGoyj2",
+            "manualCount":"manual count 2"
+            },
+            {
+              "$key": "-L_Q0rKOQRAoWx2aC3UO",
+              "count": "otro count",
+              "created": 1552010409385,
+              "inventorycount": "ultimo inventory",
+              "modified": 1552010409385,
+              "outlet": "asdasd",
+              "startdate": "asdads",
+              "starttime": "asdasd",
+              "status": "asdasd",
+              "uid": "sYAz35uEWzgDIX19BneSCdWGoyj2",
+              "manualCount":"manual count 3"
+              }
+            ]'></sacs-multi-select>
         </template>
       </demo-snippet>
     </div>
