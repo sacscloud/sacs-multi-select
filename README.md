@@ -12,7 +12,27 @@ First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polyme
 $ polymer serve
 ```
 
-## Running Tests
+
+## Test of component
+
+The component must have the test basic:
+
+- The component exist
+- The component is in the DOM
+
+The component must have test for properties:
+
+- The property exist
+- The property is declareded
+- The property not is undefined
+
+The component must have test for functions:
+
+- The function is declareded
+- The function exist
+- The function don't throw error
+
+### Running Tests
 
 ```
 $ polymer test
