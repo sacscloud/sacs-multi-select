@@ -45,6 +45,16 @@ Polymer({
         dataselected: {
             type: Array,
             value: []
+        },
+
+        labels:{
+            type:String,
+            value:null
+        },
+
+        keys:{
+            type:String,
+            value:null
         }
     },
 
@@ -58,11 +68,11 @@ Polymer({
 
             const dataList = new Object();
             for (let key in obj){
-                if(key === this.items.label){
+                if(key === this.labels){
                   dataList.name = obj[key];
                 }
                 
-                if(key === this.items.id){
+                if(key === this.keys){
                     dataList.id = obj[key];
 
                 }
