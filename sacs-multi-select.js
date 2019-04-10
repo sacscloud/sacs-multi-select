@@ -28,16 +28,6 @@ Polymer({
             value:{}
         },
 
-        title: {
-            type: String,
-            value: 'Title'
-        },
-
-        description: {
-            type: String,
-            value: 'Description'
-        },
-
         placeholderinput: {
             type: String,
             value: "placeholder"

@@ -1,6 +1,6 @@
 {
   "name": "sacs-multi-select",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "select, delete and view  multiple items",
   "main": "sacs-multi-select.html",
   "authors": [
