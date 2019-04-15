@@ -23,16 +23,11 @@ Polymer({
             value:[]
         },
 
-        items:{
-            type:Object,
-            value:{}
-        },
-
         placeholderinput: {
             type: String,
             value: "placeholder"
         },
-        dataselected: {
+        result: {
             type: Array,
             value: []
         },
@@ -84,7 +79,7 @@ Polymer({
         min-height: 30px;
         padding: 5px;
         margin: 10px;
-        background: rgb(158, 239, 245);
+        background: rgba(12, 229, 245, 0.2);
         box-sizing: border-box;
         display:flex;
         align-items:center;
@@ -95,7 +90,7 @@ Polymer({
            <iron-icon class="icon_close" icon="icons:clear" data-id="${e.detail.itemSelected}"></iron-icon>
          </div>`;
 
-        this.push('dataselected', { id: e.detail.itemSelected, name: e.detail.name });
+        this.push('result', { id: e.detail.itemSelected, name: e.detail.name });
 
 
         if (e.detail.name !== null) {
@@ -108,9 +103,9 @@ Polymer({
     _listenerCointainerItems: function (e) {
         const idItem = e.target.getAttribute('data-id');
         if (idItem !== null) {
-            const newArray = this.dataselected.filter(item => item.id !== idItem);
+            const newArray = this.result.filter(item => item.id !== idItem);
 
-            this.dataselected = newArray;
+            this.result = newArray;
 
             this.$$('.container_items').removeChild(e.target.parentElement);
         }
