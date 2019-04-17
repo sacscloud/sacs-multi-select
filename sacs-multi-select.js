@@ -7,135 +7,146 @@
      * @demo demo/index.html
      */
 
-'use strict';
+    'use strict';
 
-Polymer({
-    is: 'sacs-multi-select',
-    properties: {
-
-        datafilter: {
-            type: Array,
-            value:[]
-        },
-
-        data:{
-            type:Array,
-            value:[]
-        },
-
-        placeholderinput: {
-            type: String,
-            value: "placeholder"
-        },
-        result: {
-            type: Array,
-            value: []
-        },
-
-        labels:{
-            type:String,
-            value:null
-        },
-
-        keys:{
-            type:String,
-            value:null
-        }
-    },
-
-    listeners: {
-        'item-selected': '_listenerSelectItem',
-        'container_items.click': '_listenerCointainerItems'
-    },
-
-    attached: function () {
-        this.data.map( obj => {
-
-            const dataList = new Object();
-            for (let key in obj){
-                if(key === this.labels){
-                  dataList.name = obj[key];
-                }
-                
-                if(key === this.keys){
-                    dataList.id = obj[key];
-
-                }
-              
+    Polymer({
+        is: 'sacs-multi-select',
+        properties: {
+    
+            datafilter: {
+                type: Array,
+                value:[]
+            },
+    
+            data:{
+                type:Array,
+                value:[],
+                observer:'_observerData'
+            },
+    
+            placeholderinput: {
+                type: String,
+                value: "placeholder"
+            },
+            result: {
+                type: Array,
+                value: [],
+                notify:true
+            },
+    
+            labels:{
+                type:String,
+                value:null
+            },
+    
+            keys:{
+                type:String,
+                value:null
             }
-
-            this.push('datafilter', dataList);
-        });
-    },
-
-
-    _listenerSelectItem: function (e) {
-
-        this.$$('sacs-list-dropdown')._closeList();
-        this.$.input_filter.value = "";
-
-        const templateItem = `
-        <div style=" min-width: 90px;
-        min-height: 30px;
-        padding: 5px;
-        margin: 10px;
-        background: rgba(12, 229, 245, 0.2);
-        box-sizing: border-box;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        border: 1px solid gray;
-        border-radius: 15px;">
-          <span>${e.detail.name}</span>
-           <iron-icon class="icon_close" icon="icons:clear" data-id="${e.detail.itemSelected}"></iron-icon>
-         </div>`;
-
-        this.push('result', { id: e.detail.itemSelected, name: e.detail.name });
-
-
-        if (e.detail.name !== null) {
-            this.$$('.container_items').insertAdjacentHTML('beforeend', templateItem);
-        }
-
-        this.$$('sacs-list-dropdown').dataList = this.datafilter;
-    },
-
-    _listenerCointainerItems: function (e) {
-        const idItem = e.target.getAttribute('data-id');
-        if (idItem !== null) {
-            const newArray = this.result.filter(item => item.id !== idItem);
-
-            this.result = newArray;
-
-            this.$$('.container_items').removeChild(e.target.parentElement);
-        }
-    },
-
-    _filterSearch: function (e) {
-        const txtToFilter = this.$.input_filter.value.toLowerCase();
-        this.$$('sacs-list-dropdown')._openList();
-
-
-        if (this.__notOnlySpaces(txtToFilter)) {
-            const dataAux = this.datafilter;
-            const dataFiltered = dataAux.filter(element => element.name.toLowerCase().includes(txtToFilter));
-
-            if (dataFiltered.length === 0) {
-                this.$$('sacs-list-dropdown')._closeList();
+        },
+    
+        listeners: {
+            'item-selected': '_listenerSelectItem',
+            'container_items.click': '_listenerCointainerItems'
+        },
+    
+        _observerData: function(newVal, old){
+    
+              this.debounce('action', () => {
+    
+                this.data.map( obj => {
+                  const dataList = new Object();
+                  for (let key in obj){
+                      if(key === this.labels){
+                        dataList.name = obj[key];
+                      }
+                      
+                      if(key === this.keys){
+                          dataList.id = obj[key];
+      
+                      }
+                    
+                  }
+            
+                  this.push('datafilter', dataList);
+              });
+    
+    
+            }, 2000);
+             
+        },
+    
+        _listenerSelectItem: function (e) {
+    
+            this.$$('sacs-list-dropdown')._closeList();
+            this.$.input_filter.value = "";
+    
+            const templateItem = `
+            <div style=" min-width: 90px;
+            min-height: 30px;
+            padding: 5px;
+            margin: 10px;
+            background: rgba(12, 229, 245, 0.2);
+            box-sizing: border-box;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border: 1px solid gray;
+            border-radius: 15px;">
+              <span>${e.detail.name}</span>
+               <iron-icon class="icon_close" icon="icons:clear" data-id="${e.detail.itemSelected}"></iron-icon>
+             </div>`;
+    
+            this.push('result', { id: e.detail.itemSelected, name: e.detail.name });
+    
+    
+            if (e.detail.name !== null) {
+                this.$$('.container_items').insertAdjacentHTML('beforeend', templateItem);
             }
-
-            this.$$('sacs-list-dropdown').dataList = dataFiltered;
-
-        } else {
+    
             this.$$('sacs-list-dropdown').dataList = this.datafilter;
+    
+            console.log("RESULT..", this.result);
+        },
+    
+        _listenerCointainerItems: function (e) {
+            const idItem = e.target.getAttribute('data-id');
+            if (idItem !== null) {
+                const newArray = this.result.filter(item => item.id !== idItem);
+    
+                this.result = newArray;
+    
+                this.$$('.container_items').removeChild(e.target.parentElement);
+            }
+        },
+    
+        _filterSearch: function (e) {
+            const txtToFilter = this.$.input_filter.value.toLowerCase();
+
+            this.$$('sacs-list-dropdown')._openList();
+    
+    
+            if (this.__notOnlySpaces(txtToFilter)) {
+                const dataAux = this.datafilter;
+
+                const dataFiltered = dataAux.filter(element => element.name.toLowerCase().includes(txtToFilter));
+                
+                if (dataFiltered.length === 0) {
+                    this.$$('sacs-list-dropdown')._closeList();
+                }
+    
+                this.$$('sacs-list-dropdown').dataList = dataFiltered;
+    
+            } else {
+                this.$$('sacs-list-dropdown').dataList = this.datafilter;
+            }
+    
+        },
+    
+        __notOnlySpaces: function (text) {
+            const regex = new RegExp(/[a-z0-9]/);
+            return regex.test(text);
         }
-
-    },
-
-    __notOnlySpaces: function (text) {
-        const regex = new RegExp(/[a-z0-9]/);
-        return regex.test(text);
-    }
-
-
-});
+    
+    
+    });
