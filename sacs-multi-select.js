@@ -42,6 +42,10 @@
             keys:{
                 type:String,
                 value:null
+            },
+            value:{
+                type:Object,
+                value:{}
             }
         },
     
@@ -98,6 +102,7 @@
              </div>`;
     
             this.push('result', { id: e.detail.itemSelected, name: e.detail.name });
+            this.__createObjectValue({ id: e.detail.itemSelected, name: e.detail.name });
     
     
             if (e.detail.name !== null) {
@@ -106,7 +111,6 @@
     
             this.$$('sacs-list-dropdown').dataList = this.datafilter;
     
-            console.log("RESULT..", this.result);
         },
     
         _listenerCointainerItems: function (e) {
@@ -118,6 +122,22 @@
     
                 this.$$('.container_items').removeChild(e.target.parentElement);
             }
+        },
+
+        __createObjectValue: function(obj){
+
+            try {
+                Object.defineProperty(this.value, obj.id, 
+                    { 
+                     enumerable: true,
+                     value:true 
+                    }
+                );
+    
+            } catch (err) {
+                console.log("[Error al definir property]", err);
+            }
+
         },
     
         _filterSearch: function (e) {
