@@ -57,9 +57,11 @@
         _observerData: function(newVal, old){
     
               this.debounce('action', () => {
-    
                 this.data.map( obj => {
-                  const dataList = new Object();
+                    console.log("OBJ", obj)
+
+                  let dataList = new Object();
+
                   for (let key in obj){
                       if(key === this.labels){
                         dataList.name = obj[key];
@@ -67,11 +69,14 @@
                       
                       if(key === this.keys){
                           dataList.id = obj[key];
-      
+                      }
+
+                      if(key === "type"){
+                          dataList.type = obj[key]
                       }
                     
                   }
-            
+
                   this.push('datafilter', dataList);
               });
     
@@ -101,13 +106,14 @@
                <iron-icon class="icon_close" icon="icons:clear" data-id="${e.detail.itemSelected}"></iron-icon>
              </div>`;
     
-            this.push('result', { id: e.detail.itemSelected, name: e.detail.name });
+            this.push('result', { id: e.detail.itemSelected, name: e.detail.name, type:e.detail.type });
             this.__createObjectValue({ id: e.detail.itemSelected, name: e.detail.name });
     
     
             if (e.detail.name !== null) {
                 this.$$('.container_items').insertAdjacentHTML('beforeend', templateItem);
             }
+
     
             this.$$('sacs-list-dropdown').dataList = this.datafilter;
     
