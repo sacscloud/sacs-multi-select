@@ -58,7 +58,7 @@
     
               this.debounce('action', () => {
                 this.data.map( obj => {
-                    console.log("OBJ", obj)
+                    //console.log("OBJ", obj)
 
                   let dataList = new Object();
 
@@ -107,6 +107,8 @@
              </div>`;
     
             this.push('result', { id: e.detail.itemSelected, name: e.detail.name, type:e.detail.type });
+            //this.notifyPath('result');
+            console.log("RESULT...", this.result);
             this.__createObjectValue({ id: e.detail.itemSelected, name: e.detail.name });
     
     
